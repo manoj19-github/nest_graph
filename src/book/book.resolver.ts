@@ -1,17 +1,18 @@
-import { Resolver, Query } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 
-@Resolver('Book')
+import { BookService } from './book.service';
+import { BookDocument } from './book.schema';
+import { AddNewBookArgs } from './args/addBook.input';
+@Resolver((of) => BookDocument)
 export class BookResolver {
-  books = [
-    {
-      id: 2,
-      title: 'react',
-      price: 345,
-    },
-  ];
+  constructor(private readonly bookService: BookService) {}
 
-  @Query('books')
+  @Query((returns) => [BookDocument], { name: 'books' })
   getAllBook() {
-    return this.books;
+    return this.bookService.findAllBooks();
+  }
+  @Mutation((returns) => BookDocument, { name: 'addBook' })
+  addNewBook(@Args('addBookArgs') addBookArgs: AddNewBookArgs) {
+    return this.bookService.addBook(addBookArgs)
   }
 }

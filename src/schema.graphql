@@ -1,0 +1,25 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BookDocument {
+  title: String!
+  published: String!
+  price: Int!
+  author: String!
+}
+
+type Query {
+  books: [BookDocument!]!
+}
+
+type Mutation {
+  addBook(addBookArgs: AddNewBookArgs!): BookDocument!
+}
+
+input AddNewBookArgs {
+  title: String!
+  price: Int!
+  author: String!
+  published: String!
+}
